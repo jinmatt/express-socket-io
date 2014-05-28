@@ -18,4 +18,9 @@ io.sockets.on('connection', function(socket) {
   // On entrance
   socket.emit('entrance', { message: 'Connected to dock ' + socket.id });
 
+  socket.on('disconnect', function() {
+    // do something to mark dock is offline
+  });
+
+  
 });
