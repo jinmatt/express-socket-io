@@ -2,7 +2,7 @@
 var debug = require('debug')('my-application');
 var app = require('../app');
 var http = require('http');
-//var dockio = require('../sockets/dockio');
+var dockio = require('../sockets/dockio');
 
 app.set('port', process.env.PORT || 3000);
 
@@ -12,15 +12,9 @@ var server = http.createServer(app).listen(app.get('port'), function() {
 
 var io = require('socket.io').listen(server);
 
+// socket.io
+dockio.init(io);
 
 io.sockets.on('connection', function(socket) {
-
-  // On entrance
-  socket.emit('entrance', { message: 'Connected to dock ' + socket.id });
-
-  socket.on('disconnect', function() {
-    // do something to mark dock is offline
-  });
-
-  
+  dockio.dock_connect(socket);
 });
