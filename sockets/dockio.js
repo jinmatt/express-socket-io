@@ -22,7 +22,7 @@ exports.dock_connect = function(socket) {
 
   // toggle event
   socket.on('toggle', function(data) {
-    socket.broadcast.to(data.dock_id).emit('toggle', { message: 'Toggle button clicked.' });
+    socket.broadcast.to(data.dock_id).emit('toggle', { message: 'Toggle button for Dock: ' + data.dock_id });
   });
 
 };
