@@ -1,5 +1,6 @@
 var io = null;
 
+
 exports.init = function(socket_io) {
   io = socket_io;
 };
@@ -13,9 +14,15 @@ exports.dock_connect = function(socket) {
   });
 
 
+  // join room event
+  socket.on('join_room', function(data) {
+    socket.join(data.dock_id);
+  });
+
+
   // toggle event
   socket.on('toggle', function(data) {
-    console.log('Toggle button clicked');
-    socket.emit('toggle', { message: 'Toggle button clicked.' });
+    socket.broadcast.to(data.dock_id).emit('toggle', { message: 'Toggle button clicked.' });
   });
+
 };
